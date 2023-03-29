@@ -1,0 +1,14 @@
+{% load menu_tags %}
+
+{% with items=menu_tree %}
+<ul class="menu">
+    {% for item, children in items %}
+        <li class="{% if request.path == item.get_url %}active{% endif %}">
+            <a href="{{ item.get_url }}">{{ item.title }}</a>
+            {% if children %}
+                {% include 'menu_app/menu.html' with menu_tree=children %}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+{% endwith %}
